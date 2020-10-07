@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+<div>
+	<canvas width="512" height="512" id='canvas'>
+	</canvas>
+</div>
+
+
+<script>
+var img = new Image();
+img.crossOrigin = 'Anonymos';
+img.src = 'https://sun9-62.userapi.com/c857124/v857124296/64232/W-3siAwselA.jpg'
+img.onload = function() {
+	draw(this);
+};
+
+function draw(img) {
+	var audio = new Audio('https://cdn2.sefon.pro/files/prev/6/Homie%20-%20%D0%91%D0%B5%D0%B7%D1%83%D0%BC%D0%BD%D0%BE%20%D0%9C%D0%BE%D0%B6%D0%BD%D0%BE%20%D0%91%D1%8B%D1%82%D1%8C%20%D0%9F%D0%B5%D1%80%D0%B2%D1%8B%D0%BC%20%28192kbps%29.mp3');
+	var enter_counter = 0;
+	var canvas = document.getElementById('canvas');
+	var ctx = canvas.getContext('2d');
+	ctx.drawImage(img, 0, 0, 512, 512);
+	img.style.display = 'none';
+	var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+	var data = imageData.data;
+	
+	var draworig = function(){
+		ctx.drawImage(img, 0, 0, 512, 512);
+		imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+		data = imageData.data;
+	}
+	var invert = function() {
+		for (var i = 0; i < data.length; i += 4) {
+			data[i]     = 255 - data[i];     
+			data[i + 1] = 255 - data[i + 1]; 
+			data[i + 2] = 255 - data[i + 2]; 
+		}
+		ctx.putImageData(imageData, 0, 0);
+	};
+
+	var grayscale = function() {
+		for (var i = 0; i < data.length; i += 4) {
+			var avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+			data[i]     = avg; 
+			data[i + 1] = avg;
+			data[i + 2] = avg; 
+		}
+		ctx.putImageData(imageData, 0, 0);
+	};
+	
+	var makeauf = function() {
+		if( enter_counter % 2 == 0) {
+			audio.play();
+			enter_counter+=1;
+		}
+		else{
+			audio.pause();
+			enter_counter-=1;
+		}
+		
+		
+	}
+	
+	
+	var originalbtn = document.getElementById('originalbtn');
+	originalbtn.addEventListener('click', draworig);
+	var invertbtn = document.getElementById('invertbtn');
+	invertbtn.addEventListener('click', invert);
+	var grayscalebtn = document.getElementById('grayscalebtn');
+	grayscalebtn.addEventListener('click', grayscale);
+	var aufbtn = document.getElementById('aufbtn');
+	aufbtn.addEventListener('click', makeauf);
+	
+
+}
+        
+ 
+
+</script>
+
+<div>
+	<input type="button" class="btn" id="originalbtn" value="Original">
+    <input type="button" class="btn" id="invertbtn" value="Invert">
+    <input type="button" class="btn" id="grayscalebtn" value="Make Grey">
+	<input type="button" class="btn" id="aufbtn" value="AUF">
+</div>
+
+</body>
+</html>

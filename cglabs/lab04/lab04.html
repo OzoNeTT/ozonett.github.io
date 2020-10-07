@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+ 
+<html>
+ 
+<body>
+ 
+<div>
+    <canvas width="512" height="512" id='canvas'>
+    </canvas>
+</div>
+ 
+<script>
+document.data = {
+	url: 'https://i.imgur.com/s01oE.png',
+}
+var img = new Image();
+img.crossOrigin = 'Anonymous';
+img.src = document.data.url;
+ 
+img.onload = function() {
+    draw(this);
+};
+ 
+function draw(img) {
+ 
+    var enter_counter = 0;
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.width);
+    img.style.display = 'none';
+    var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    var data = imageData.data;
+    
+    var draworig = function(){
+		ctx.clearRect(0, 0, canvas.width, canvas.width);
+		img.src = document.data.url;
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.width);
+        imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        data = imageData.data;
+    }
+
+	var glurFilter = function() {
+		var tmpPx = new Uint8ClampedArray(data.length);
+		tmpPx.set(data);
+
+		for (var i = 0, len= data.length; i < len; i++) {
+			if (i % 4 === 3) {continue;}
+
+			data[i] = ( tmpPx[i] 
+				+ (tmpPx[i - 4] || tmpPx[i])
+				+ (tmpPx[i + 4] || tmpPx[i]) 
+				+ (tmpPx[i - 4 * data.width] || tmpPx[i])
+				+ (tmpPx[i + 4 * data.width] || tmpPx[i]) 
+				+ (tmpPx[i - 4 * data.width - 4] || tmpPx[i])
+				+ (tmpPx[i + 4 * data.width + 4] || tmpPx[i])
+				+ (tmpPx[i + 4 * data.width - 4] || tmpPx[i])
+				+ (tmpPx[i - 4 * data.width + 4] || tmpPx[i])
+				)/9;
+		};
+		ctx.putImageData(imageData,0,0);
+	}
+    var filterImg = function() {
+ 
+        var width = imageData.width;
+        var height = imageData.height;
+ 
+        var kernelX =[
+            [-1,0,1],
+            [-2,0,2],
+            [-1,0,1]
+        ];
+ 
+        var kernelY = [
+            [-1,-2,-1],
+            [0,0,0],
+            [1,2,1]
+        ];
+ 
+        var sobelData = [];
+        
+        function bindPixelAt(dat){
+            return function(x, y, i){
+                i = i || 0;
+                return dat[((width * y) + x) * 4 + i];
+            };
+        }
+ 
+        var data = imageData.data;
+        var pixelAt = bindPixelAt(data);
+        var x,y;
+ 
+		for (var i = 0; i < data.length; i += 4) {
+			var avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+			data[i]     = avg; 
+			data[i + 1] = avg;
+			data[i + 2] = avg; 
+		}
+		ctx.putImageData(imageData, 0, 0);
+		var grayscaleData = imageData.data;
+ 
+        pixelAt = bindPixelAt(grayscaleData);
+ 
+        for (y = 0; y < height; y++){
+            for (x = 0; x < width; x++){
+                var pixelX = (
+                    (kernelX[0][0] * pixelAt(x - 1, y - 1)) +
+                    (kernelX[0][1] * pixelAt(x, y - 1)) +
+                    (kernelX[0][2] * pixelAt(x + 1, y - 1)) +
+                    (kernelX[1][0] * pixelAt(x - 1, y)) +
+                    (kernelX[1][1] * pixelAt(x, y)) +
+                    (kernelX[1][2] * pixelAt(x + 1, y)) +
+                    (kernelX[2][0] * pixelAt(x - 1, y + 1)) +
+                    (kernelX[2][1] * pixelAt(x, y + 1)) +
+                    (kernelX[2][2] * pixelAt(x + 1, y + 1))
+                );
+ 
+                var pixelY = (
+					(kernelY[0][0] * pixelAt(x - 1, y - 1)) +
+					(kernelY[0][1] * pixelAt(x, y - 1)) +
+					(kernelY[0][2] * pixelAt(x + 1, y - 1)) +
+					(kernelY[1][0] * pixelAt(x - 1, y)) +
+					(kernelY[1][1] * pixelAt(x, y)) +
+					(kernelY[1][2] * pixelAt(x + 1, y)) +
+					(kernelY[2][0] * pixelAt(x - 1, y + 1)) +
+					(kernelY[2][1] * pixelAt(x, y + 1)) +
+					(kernelY[2][2] * pixelAt(x + 1, y + 1))
+                );
+ 
+                var magnitude = Math.sqrt((pixelX * pixelX) + (pixelY * pixelY))>>>2;
+                sobelData.push(magnitude,magnitude,magnitude,255);
+            }
+        }
+        var clampedArray = new Uint8ClampedArray(sobelData);
+		var sobelImageData = ctx.createImageData(width, height);
+		sobelImageData.data.set(clampedArray);
+        ctx.putImageData(sobelImageData,0,0);
+ 
+    }
+ 
+    
+    var originalbtn = document.getElementById('originalbtn');
+    originalbtn.addEventListener('click', draworig);
+    var filterbtn = document.getElementById('filterbtn');
+    filterbtn.addEventListener('click', filterImg);
+	var glurfilterbtn = document.getElementById('glurfilterbtn');
+    glurfilterbtn.addEventListener('click', glurFilter);
+ 
+}
+        
+ 
+ 
+</script>
+ 
+<div>
+    <input type="button" class="btn" id="originalbtn" value="Original">
+    <input type="button" class="btn" id="filterbtn" value="Sobel">
+	<input type="button" class="btn" id="glurfilterbtn" value="Gauss">
+ 
+</div>
+<div>
+	<label for="name">Image:</label>
+	<input type="text" id="pixel-size" value="https://i.imgur.com/s01oE.png">
+
+	<script>
+        (() => {
+            const $ = (s) => document.querySelector(s);
+
+            $('#pixel-size').addEventListener('input', function () {
+                document.data.url = this.value;
+            });
+		})();
+	</script>
+</div>
+<p><b>Gauss</b> - применяет фильтр Гаусса к изображению (нажать несколько раз, чтобы усилить).</p>
+<p><b>Sobel</b> - применяет фильтр Собеля для определения границ изображения.</p>
+<p>П.с. есть некоторый баг с применением фильтра Гаусса после Собеля. Поэтому для корректной 
+работы для начала необходимо применить фильтр Гаусса, а уже после фильтр Собеля. </p>
+
+</body>
+</html>

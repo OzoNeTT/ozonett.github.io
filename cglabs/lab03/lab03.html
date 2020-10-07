@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html>
+
+<body>
+
+<div>
+	<canvas width="512" height="512" id='canvas'>
+	</canvas>
+</div>
+
+<script>
+
+var dotCounter = 0;
+var x = 0;
+var y = 0;
+document.data = {
+	pixelSize: 1,
+}
+
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+
+ctx.strokeRect(0, 0, 512, 512);
+
+function line(x0,y0,x1,y1) {
+	var p = document.data.pixelSize;
+	
+	var dx =  Math.abs(x1-x0);
+	var dy = -1* Math.abs(y1-y0);
+	sx = (x0 < x1 ? p : -p);
+	sy = (y0 < y1 ? p : -p); 
+	var err = dx+dy;
+	var e2; 
+ 
+	for(;;){ 
+		ctx.fillRect(x0,y0,p,p);
+		if (x0 > x1 - p && x0 < x1 + p && y0 > y1 - p && y0 < y1 + p){
+			break;
+		}
+		e2 = 2 * err;
+		if (e2 >= dy) { 
+			err += dy; 
+			x0 += sx; 
+		} 
+		if (e2 <= dx) { 
+			err += dx; 
+			y0 += sy; 
+		} 	
+	}	
+}
+
+canvas.addEventListener('click', (event) => {
+	if (dotCounter % 2 == 0){
+		if(event.offsetX > 0 && event.offsetX < 512 && event.offsetY > 0 && event.offsetY < 512){
+			x = event.offsetX;
+			y = event.offsetY;
+			dotCounter +=1;
+		}
+		
+	}
+	else {
+		line(x,y,event.offsetX, event.offsetY);
+		dotCounter +=1;
+	}
+	
+})
+
+</script>
+<div>
+	<label for="name">Pixel size:</label>
+	<input type="text" id="pixel-size" value="1">
+
+	<script>
+        (() => {
+            const $ = (s) => document.querySelector(s);
+
+            $('#pixel-size').addEventListener('input', function () {
+                document.data.pixelSize = +this.value;
+            });
+		})();
+	</script>
+</div>
+
+</body>
+</html>

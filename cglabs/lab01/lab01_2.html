@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+
+<canvas width="500" height="500" id='canvas'>
+</canvas>
+
+<script>
+
+var glx = 175;
+var gly = 230;
+var step = 2*Math.PI/1000; 
+var h = 250; 
+var k = 250;
+var r = 150;
+
+
+function smth() {
+	var ctx = document.getElementById('canvas').getContext('2d');
+	ctx.clearRect(0, 0, 500, 500);
+	ctx.fillStyle = "#e31937";
+	ctx.font = "50px Segoe UI";
+	ctx.fillText("beats", 60, 50);
+	ctx.font = "10px Segoe UI";
+	ctx.fillText("TM", 180, 50);	
+	
+	
+	ctx.fillStyle = "#a7a9ac";
+	ctx.font = "50px Segoe UI";
+	ctx.fillText("by dr.dre", 200, 50);
+	ctx.font = "10px Segoe UI";
+	ctx.fillText("TM", 400, 50);
+
+	
+	ctx.globalCompositeOperation = "destination-over";
+	ctx.fillStyle = "Black";
+	ctx.fillRect(0,0,canvas.width,canvas.height);
+	ctx.globalCompositeOperation = "source-over";
+	ctx.lineWidth = 4;
+	ctx.strokeStyle="Black";
+	ctx.strokeRect(0, 0, canvas.width, canvas.height);
+	
+	
+	for(var i  = r; i >=0; i--) {
+		for(var theta=0;  theta < 2*Math.PI;  theta+=step)
+		{ 
+
+			var x = h + i*Math.cos(theta);
+			var y = k - i*Math.sin(theta);		
+			ctx.fillStyle="rgba(227,25,55,1)";
+			ctx.fillRect(x,y,2,1);
+		}
+
+	}
+	ctx.fillStyle = "Black";
+	for(var i  = r/2; i >=50; i--) {
+		for(var theta=0;  theta < 2*Math.PI;  theta+=step)
+		{ 
+			var x = h + i*Math.cos(theta);
+			var y = k - i*Math.sin(theta);   
+			ctx.fillRect(x,y,2,1);
+		}
+	}
+
+	for(var i = 0; i < 130; i++){
+		gly -= 1;
+		ctx.fillRect(glx,gly,25,25);
+	}
+	
+}
+
+smth();
+</script>
+
+
+</body>
+</html>
