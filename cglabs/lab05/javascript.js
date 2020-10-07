@@ -165,6 +165,7 @@ function closePoly(){
 	};
 	obj.x = polygon_axis_x[0]
 	obj.y = polygon_axis_y[0]
+	restoreSnapshot();
 	line(lastPosition, obj,"black", 3)
 	if (polygon_axis_x.length > 2) {
 		clipping();	
