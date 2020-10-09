@@ -522,14 +522,14 @@ footer.main-footer nav.footer-nav ul li a{
 	        transform:translate(-50%, -50%);
 }
 .site-hero .small-title{
-	font-size: 15px;
+	font-size: 20px;
 	color:#60606e;
 	padding: 7px 12px;
 	background-color: #7bcfee;
 	display: inline-block;
 }
 .site-hero .big-title{
-	font-size: 60px;
+	font-size: 55px;
 	color:#60606e;
 	padding: 10px 80px;
 	border:solid 10px #60606e;
