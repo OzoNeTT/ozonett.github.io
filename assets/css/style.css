@@ -570,8 +570,8 @@ footer.main-footer nav.footer-nav ul li a{
 	margin-top: -300px;
 }
 .agency img{
-	max-height: 400px;
-	max-width: 400px;
+	max-height: 100%;
+	max-width: 100%;
 }
 .agency p{
 	color:#60606e;
