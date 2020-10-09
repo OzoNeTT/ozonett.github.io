@@ -47,71 +47,54 @@
 	<!-- HERO SECTION  -->
 	<div class="site-hero_2">
 		<div class="page-title">
-			<div class="big-title montserrat-text uppercase">CG-LABS</div>
-			<div class="small-title montserrat-text uppercase">My computer graphics labs</div>
+			<div class="big-title montserrat-text uppercase">CONTACTS</div>
+			<div class="small-title montserrat-text uppercase">Here are some socials</div>
 		</div>
 	</div>
 
 
-
-
-	<section class="pricing_plans">
-		<div class="container">
-			<div class="row">
-				<div class="section-title">
-					<span>Labs listing</span>
-					<p>Please do not copy paste full script, just use it for understanding the basic work principals</p>
-				</div>
+	<section>
+		<div class="container" >
+			<div style="text-align:center">
+				<img src="assets/img/github.png" style="margin: -10px 98px 0 0" width="50" height="50"  alt="image">
+				<a class="montserrat-text" style="font-size:24px" href="https://github.com/OzoNeTT">
+					VIEW MY GITHUB PAGE
+				</a>
 			</div>
-			<div class="row">
-				<div class="col-md-4 col-sm-6 col-xs-12 wow fadeInUp">
-					<div class="pricing_plan">
-						<div class="plan_title montserrat-text uppercase">lab01</div>
-						<p>The mooving square.</p>
-						<a href="cglabs/lab01/lab01_1.html" class="btn green"><span>goto</span></a>
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-6 col-xs-12 wow fadeInUp">
-					<div class="pricing_plan">
-						<div class="plan_title montserrat-text uppercase">lab01-2</div>
-						<p>Simple image drowing.</p> 
-						<a href="cglabs/lab01/lab01_2.html" class="btn green"><span>goto</span></a>
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-6 col-xs-12 wow fadeInUp">
-					<div class="pricing_plan">
-						<div class="plan_title montserrat-text uppercase">lab02</div>
-						<p>Grayscaling the image data.</p>
-						<a href="cglabs/lab02/lab02.html" class="btn green"><span>goto</span></a>
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-6 col-xs-12 wow fadeInUp">
-					<div class="pricing_plan">
-						<div class="plan_title montserrat-text uppercase">lab03</div>
-						<p>Bresenham's line algorithm.</p>
-						<a href="cglabs/lab03/lab03.html" class="btn green"><span>goto</span></a>
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-6 col-xs-12 wow fadeInUp">
-					<div class="pricing_plan">
-						<div class="plan_title montserrat-text uppercase">lab04</div>
-						<p>Sobel filter for image edge detection.</p>
-						<a href="cglabs/lab04/lab04.html" class="btn green"><span>goto</span></a>
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-6 col-xs-12 wow fadeInUp">
-					<div class="pricing_plan">
-						<div class="plan_title montserrat-text uppercase">lab05</div>
-						<p>Cyrus-beck line clipping algorithm.</p>
-						<a href="cglabs/lab05/lab05.html" class="btn green"><span>goto</span></a>
-					</div>
-				</div>
+			<br>
+			<br>
+			<div style="text-align:center">
+				<img src="assets/img/telegram.png" style="margin: -10px 47px 0 0" width="50" height="50"  alt="image">
+				<a class="montserrat-text" style="font-size:24px" href="https://t.me/OzoNeT_T">
+					MESSAGE ME IN TELEGRAM
+				</a>
+			</div>
+			<br>
+			<br>
+			<div  style="text-align:center">
+				<img src="assets/img/vk.png" style="margin: -10px 211px 0 0" width="50" height="50"  alt="image">
+				<a class="montserrat-text" style="font-size:24px" href="https://vk.com/ozonet_t">
+					ADD ME IN VK
+				</a>
+			</div>
+			<br><br>
+			<div style="text-align:center">
+				<img src="assets/img/instagram.png" style="margin: -10px 31px 0 0" width="50" height="50"  alt="image">
+				<a class="montserrat-text" style="font-size:24px" href="https://www.instagram.com/_algoan_/">
+					FOLLOW ME ON INSTAGRAM
+				</a>
+			</div>
+			<br><br>
+			<div style="text-align:center">
+				<img src="assets/img/twitter.png" style="margin: -10px 139px 0 0" width="50" height="50"  alt="image">
+				<a class="montserrat-text" style="font-size:24px" href="https://twitter.com/gpoff12">
+					MY EMPTY TWITTER
+				</a>
 			</div>
 		</div>
 	</section>
-
-
-
+	<br>
+	<br>
 	<footer class="main-footer wow fadeInUp">
 		<div class="container">
 			<div class="col-md-8 col-sm-12">
@@ -141,12 +124,18 @@
 	<!-- SCRIPTS -->
 	<script type="text/javascript" src="assets/js/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript" src="assets/js/smoothScroll.js"></script>
+	<script type="text/javascript" src="assets/js/jquery.flexslider.js"></script>
 	<script type="text/javascript" src="assets/js/jquery.animsition.min.js"></script>
 	<script type="text/javascript" src="assets/js/wow.min.js"></script>
 	<script type="text/javascript" src="assets/js/main.js"></script>
 	<script type="text/javascript">
 	$(window).load(function(){
 		new WOW().init();
+		$(".testimonials").flexslider({
+			directionNav : false,
+			controlNav : false,
+			smoothHeight : true,
+		});
 	});
 	</script>
 </body>

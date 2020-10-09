@@ -27,7 +27,8 @@ theme.
 */
 @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700); /* Montserrat font */
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800); /* Open sans font */
-
+@font-face { font-family: Planet; src: url('../fonts/planetspace.ttf'); } 
+@font-face { font-family: DirgaFont; src: url('../fonts/dirga.ttf'); } 
 /* ##### GENERAL  ##### */
 *{
 	outline:0;padding: 0;margin:0;
@@ -57,7 +58,6 @@ section{
 .light-gray-section{
 	background-color: #efeff0;
 }
-img{width:100%;}
 
 /*blockquote*/
 blockquote.bq{
@@ -98,6 +98,8 @@ a:hover:after{
 	width: 50%;
 }
 /*texts*/
+.dirga-text{font-family: "DirgaFont"}
+.planet-text{font-family: "Planet"}
 .montserrat-text{font-family: "Montserrat", sans-serif; font-weight: 700}
 .open-sans-text{font-family: "Open sans", sans-serif}
 .white-text{color:white;}
@@ -110,6 +112,7 @@ p{
 	font-family: "Open sans", sans-serif;
 	color:#999999;
 	line-height: 30px;
+	font-size: 12pt;
 }
 ul.social-icons li a:hover{
 	color:#7bcfee;
@@ -401,7 +404,7 @@ nav.desktop-nav ul.first-level > li > ul.second-level > li > a:hover{
 /*mobile nav*/
 nav.mobile-nav{
 	display: inline-block;
-	min-width: 300px;
+	min-width: 100%;
 	background-color: #60606e;
 	position: absolute;
 	right: 0;
@@ -415,14 +418,14 @@ nav.mobile-nav > ul.first-level > li a {
 	display: inline-block;
 	text-decoration: none;
 	width: 100%;
-	height: 40px;
-	line-height: 40px;
+	height: 100%;
+	line-height: 450%;
 	text-align: center;
 	color:white;
 	font-family: "Montserrat", sans-serif;
 	font-weight: 700;
 	text-transform: uppercase;
-	font-size: 12px;
+	font-size: 16px;
 }
 nav.mobile-nav > ul.first-level > li a:hover{
 	background-color: #404051;
@@ -495,7 +498,7 @@ footer.main-footer nav.footer-nav ul li a{
 /* ##### 02 : SITE HEROS  ##### */
 /*site hero 1 */
 .site-hero{
-	height: 735px;
+	height: 800px;
 	width: 100%;
 	background: #fff url("../img/site-hero.jpg") no-repeat;
 	background-size: cover;
@@ -503,7 +506,7 @@ footer.main-footer nav.footer-nav ul li a{
 	overflow: hidden;
 }
 .site-hero ul.slides{
-	height: 300px; /* 850 - 400 */
+	height: 450px; /* 850 - 400 */
 	width: 100%;
 	position: absolute;
 	top:100px;
@@ -519,15 +522,16 @@ footer.main-footer nav.footer-nav ul li a{
 	        transform:translate(-50%, -50%);
 }
 .site-hero .small-title{
+	font-size: 15px;
 	color:#60606e;
 	padding: 7px 12px;
 	background-color: #7bcfee;
 	display: inline-block;
 }
 .site-hero .big-title{
-	font-size: 48px;
+	font-size: 60px;
 	color:#60606e;
-	padding: 10px 40px;
+	padding: 10px 80px;
 	border:solid 10px #60606e;
 	display: inline-block;
 	margin-bottom: 30px;
