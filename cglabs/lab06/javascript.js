@@ -2,7 +2,11 @@
 
 var canvas;
 var ctx;
-var points = [];
+
+var polygon_axis_x = [];
+var polygon_axis_y = [];
+var x_points = [];
+var y_points = [];
 var startPosition;
 var curPosition;
 var lastPosition;
@@ -20,17 +24,21 @@ function initial(){
 
 }
 
-function fillArea(cords, p) {
-	ctx.fillStyle = "blue";
+function fillArea(x1, y1, p) {
+	ctx.fillStyle = "Blue";
+	var obj = {
+		x: x1,
+		y: y1
+	};
 	var stack = [];
-	stack.push(cords);
+	stack.push(obj);
 	while(stack.length != 0){
 		var objj = stack.pop();
 		
 		ctx.fillRect(objj.x, objj.y, p, p);
 		if(objj.x - p > 0 && ctx.getImageData(objj.x-p, objj.y, p, p).data[3] != 255){
 			var obbj = {
-				x: objj.x - p,
+				x: objj.x - 3,
 				y: objj.y
 			};
 			stack.push(obbj);
@@ -109,13 +117,20 @@ function restoreSnapshot(){
 
 function dragStart(event){
 	dragging = true;
-	startPosition= getCoordinate(event)
-	points.push(startPosition);
 
-	ctx.fillStyle = 'rgba(255, 0, 0, 1)'
-	ctx.fillRect(startPosition.x-4, startPosition.y-4, 8,8)
-
+	startPosition = getCoordinate(event);
 	takeSnapshot();
+	x_points.push(startPosition.x);
+	y_points.push(startPosition.y);
+			
+
+	if(x_points[x_points.length-2] != startPosition.x && y_points[y_points.length-2] != startPosition.y){
+		polygon_axis_x.push(startPosition.x);
+		polygon_axis_y.push(startPosition.y);
+	}
+	
+
+	
 }
 
 function drag(event){
@@ -131,23 +146,35 @@ function dragStop(event){
 	lastPosition = getCoordinate(event);
 	line(startPosition, lastPosition, "black", 3);
 
-}
-function closePoly(){
-	points.push(points[0])
+	x_points.push(lastPosition.x);
+	y_points.push(lastPosition.y);
 
-	restoreSnapshot();
-
-	for(var j = 0; j < points.length - 1; j++){
-		var ob1 = {
-			x: points[j].x,
-			y: points[j].y
-		};
-		var ob2 = {
-			x: points[j + 1].x,
-			y: points[j + 1].y
-		};
-		line(ob1, ob2, 'rgba(0, 0, 0, 1)', 3)
+	if(tools == "polygon"){
+		
+		if(x_points[x_points.length-1] != lastPosition.x && y_points[y_points.length-1] != lastPosition.y){
+			polygon_axis_x.push(lastPosition.x);
+			polygon_axis_y.push(lastPosition.y);
+		}			
 	}
+
+	else if(tools == "polygon" && x_points[0] == lastPosition.x && y_points[0] == lastPosition.y){
+		dragging = false;				
+		while(x_points.length != 0 && y_points.length != 0){
+			x_points.pop();
+			y_points.pop();
+		}
+	}
+}
+
+function closePoly(){
+	var obj = {
+		x: 0.0,
+		y: 0.0
+	};
+	obj.x = polygon_axis_x[0];
+	obj.y = polygon_axis_y[0];
+	restoreSnapshot();
+	line(lastPosition, obj,"black", 3);
 	canvas.addEventListener("mousedown",paint,false);
 	dragging = false;
 	oof();	
@@ -155,15 +182,19 @@ function closePoly(){
 }
 
 function paint(event){
-	var cords = getCoordinate(event)
-	fillArea(cords, 1);
+	fillArea(event.x, event.y, 3);
 }
 
-function draw(){
+function draw(x){
+	tools = x;	
+
 	canvas.addEventListener("mousedown",dragStart,false);
 	canvas.addEventListener("mousemove",drag,false);
 	canvas.addEventListener("mouseup",dragStop,false);
-	document.addEventListener("keypress",closePoly);
+	
+	if (tools == "polygon") {
+		document.addEventListener("keypress",closePoly);
+	}
 }
 
 function stopdraw(){
@@ -176,8 +207,11 @@ function stopdraw(){
 function oof(){
 	dragging = false;
 
-	while(points.length != 0 ){
-		points.pop();
+	while(x_points.length != 0 || y_points.length != 0 || polygon_axis_y != 0 || polygon_axis_x != 0){
+		polygon_axis_x.pop();
+		polygon_axis_y.pop();
+		x_points.pop();
+		y_points.pop();
 	}
 }
 
