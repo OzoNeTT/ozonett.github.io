@@ -94,8 +94,6 @@ function getMeetPoint(y) {
         }
 
     return  meet;
-
-
 }
 function Line(start, end) {
     this.x0 = start.x;

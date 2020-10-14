@@ -98,6 +98,14 @@ function dragStart(event){
 	dragging = true;
 
 	startPosition = getCoordinate(event);
+	if (tools == "polygon" ) {
+		ctx.fillStyle = 'rgba(255, 0, 0, 1)'
+		ctx.fillRect(startPosition.x-4, startPosition.y-4, 8,8)
+	}
+	else if(tools == "line"){
+		ctx.fillStyle = 'rgba(0, 255, 0, 1)'
+		ctx.fillRect(startPosition.x-4, startPosition.y-4, 8,8)
+	}
 	takeSnapshot();
 	x_points.push(startPosition.x);
 	y_points.push(startPosition.y);
@@ -127,7 +135,14 @@ function dragStop(event){
 	restoreSnapshot();
 	lastPosition = getCoordinate(event);
 	line(startPosition, lastPosition, "black", 3);
-
+	if (tools == "polygon" ) {
+		ctx.fillStyle = 'rgba(255, 0, 0, 1)'
+		ctx.fillRect(lastPosition.x-4, lastPosition.y-4, 8,8)
+	}
+	else if(tools == "line"){
+		ctx.fillStyle = 'rgba(0, 255, 0, 1)'
+		ctx.fillRect(lastPosition.x-4, lastPosition.y-4, 8,8)
+	}
 	x_points.push(lastPosition.x);
 	y_points.push(lastPosition.y);
 	if (tools == "line") {
@@ -337,7 +352,7 @@ function clipping(){
 				obj.y = clippingStartPointy
 				obj2.x = clippingEndPointx
 				obj2.y = clippingEndPointy
-				line(obj, obj2, "red", 5)
+				line(obj, obj2, "blue", 5)
 
 			}
  		}
@@ -357,9 +372,8 @@ function clipping(){
 
 function draw(x){
 	tools = x;	
-
 	canvas.addEventListener("mousedown",dragStart,false);
-	canvas.addEventListener("mousemove",drag,false);
+	canvas.addEventListener("mousemove",drag,false); 
 	canvas.addEventListener("mouseup",dragStop,false);
 	
 	if (tools == "polygon") {
