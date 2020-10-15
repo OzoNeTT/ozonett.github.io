@@ -157,7 +157,7 @@ function dragStop(event){
 	}
 
 	else if(tools == "polygon"){
-		
+		document.getElementsByName('butss')[0].disabled=0;
 		if(x_points[x_points.length-1] != lastPosition.x && y_points[y_points.length-1] != lastPosition.y){
 			polygon_axis_x.push(lastPosition.x);
 			polygon_axis_y.push(lastPosition.y);
@@ -171,6 +171,7 @@ function dragStop(event){
 			y_points.pop();
 		}
 	}
+
 }
 
 function closePoly(){
@@ -189,6 +190,7 @@ function closePoly(){
 		alert("NOT POLYGON");
 		dragging = false;
 	}
+	document.getElementsByName('butss')[0].disabled=1;
 	
 }
 function clipping(){
@@ -403,7 +405,7 @@ function clearScreen(){
 		TLmin[i] = 1;
 		checkInside[i] = "inside";
 	}
-
+	document.getElementsByName('butss')[0].disabled=1;
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	ctx.lineWidth = 1;
 	ctx.strokeStyle = "black"

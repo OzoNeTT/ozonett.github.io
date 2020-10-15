@@ -158,6 +158,7 @@ function dragStop(event){
 	restoreSnapshot();
 	lastPosition = getCoordinate(event);
 	line(startPosition, lastPosition, "black", 3);
+	document.getElementsByName('butss')[0].disabled=0;
 
 }
 function closePoly(){
@@ -182,6 +183,7 @@ function closePoly(){
 	dragging = false;
 	fillArea();
 	oof()
+	document.getElementsByName('butss')[0].disabled=1;
 }
 
 function draw(){
@@ -196,6 +198,7 @@ function stopdraw(){
 	canvas.removeEventListener("mousedown",dragStart,false);
 	canvas.removeEventListener("mousemove",drag,false);
 	canvas.removeEventListener("mouseup",dragStop,false);
+	document.getElementsByName('butss')[0].disabled=1;
 }
 
 function oof(){
@@ -207,13 +210,14 @@ function oof(){
 }
 
 function clearScreen(){
-
+    
 	oof();
     stopdraw();
-	
+	dragging=false;
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	ctx.lineWidth = 1;
 	ctx.strokeStyle = "black"
 	ctx.strokeRect(0, 0, canvas.width, canvas.height);
+	takeSnapshot();
 	draw()
 }

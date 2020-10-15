@@ -130,6 +130,7 @@ function dragStop(event){
 	restoreSnapshot();
 	lastPosition = getCoordinate(event);
 	line(startPosition, lastPosition, "black", 3);
+	document.getElementsByName('butss')[0].disabled=0;
 
 }
 function closePoly(){
@@ -152,6 +153,7 @@ function closePoly(){
 	dragging = false;
 	oof();	
 	stopdraw();
+	document.getElementsByName('butss')[0].disabled=1;
 }
 
 function paint(event){
@@ -171,6 +173,7 @@ function stopdraw(){
 	canvas.removeEventListener("mousemove",drag,false);
 	canvas.removeEventListener("mouseup",dragStop,false);
 	document.removeEventListener("keypress",closePoly,false);
+	document.getElementsByName('butss')[0].disabled=1;
 }
 
 function oof(){
