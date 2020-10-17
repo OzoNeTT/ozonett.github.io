@@ -374,15 +374,15 @@ function clipping(){
 
 function draw(x){
 	tools = x;	
-	canvas.addEventListener("mousedown",dragStart,false);
-	canvas.addEventListener("mousemove",drag,false); 
-	canvas.addEventListener("mouseup",dragStop,false);
+	window.addEventListener("mousedown",dragStart,false);
+	window.addEventListener("mousemove",drag,false); 
+	window.addEventListener("mouseup",dragStop,false);
 	
 	if (tools == "polygon") {
 		document.addEventListener("keypress",closePoly);
 	}
 	if (tools == "line"){
-		canvas.addEventListener("click",clipping);
+		window.addEventListener("click",clipping);
 	}
 
 }
@@ -411,6 +411,8 @@ function clearScreen(){
 	ctx.strokeStyle = "black"
 	ctx.strokeRect(0, 0, canvas.width, canvas.height);
 	document.removeEventListener("keypress",closePoly,false);
-	canvas.removeEventListener("click",clipping);
+	window.removeEventListener("click",clipping);
+
+
 	draw('polygon')
 }
