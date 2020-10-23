@@ -14,9 +14,7 @@ window.addEventListener("load",initial,false);
 function initial(){					
 	canvas = document.getElementById("myCanvas");
 	ctx = canvas.getContext("2d");
-	ctx.strokeRect(0, 0, 512, 512);
 	draw()
-
 }
 function line(start, curPosition, color, size) {
 	var p = size;
@@ -216,9 +214,6 @@ function clearScreen(){
     stopdraw();
 	dragging=false;
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
-	ctx.lineWidth = 1;
-	ctx.strokeStyle = "black"
-	ctx.strokeRect(0, 0, canvas.width, canvas.height);
 	takeSnapshot();
 	draw()
 }

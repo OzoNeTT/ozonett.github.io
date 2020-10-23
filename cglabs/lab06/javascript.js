@@ -14,7 +14,6 @@ window.addEventListener("load",initial,false);
 function initial(){					
 	canvas = document.getElementById("myCanvas");
 	ctx = canvas.getContext("2d");
-	ctx.strokeRect(0, 0, 512, 512);
 	draw('polygon')
 
 }
@@ -195,8 +194,5 @@ function clearScreen(){
     stopdraw();
 	canvas.removeEventListener("mousedown",paint,false);
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
-	ctx.lineWidth = 1;
-	ctx.strokeStyle = "black"
-	ctx.strokeRect(0, 0, canvas.width, canvas.height);
 	draw('polygon')
 }

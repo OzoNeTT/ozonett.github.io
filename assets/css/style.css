@@ -495,6 +495,10 @@ footer.main-footer nav.footer-nav ul li a{
 	}
 }
 
+canvas{
+	border: 1px solid #000000;
+	border-radius: 8px;
+}
 /* ##### 02 : SITE HEROS  ##### */
 /*site hero 1 */
 .site-hero{
@@ -522,17 +526,17 @@ footer.main-footer nav.footer-nav ul li a{
 	        transform:translate(-50%, -50%);
 }
 .site-hero .small-title{
-	font-size: 20px;
+	font-size: 15px;
 	color:#60606e;
 	padding: 7px 12px;
 	background-color: #7bcfee;
 	display: inline-block;
 }
 .site-hero .big-title{
-	font-size: 45px;
+	font-size: 35px;
 	color:#60606e;
 	padding: 10px 60px;
-	border:solid 10px #60606e;
+	border:solid 5px #60606e;
 	display: inline-block;
 	margin-bottom: 30px;
 }
@@ -559,7 +563,7 @@ footer.main-footer nav.footer-nav ul li a{
 	        transform:translate(-50%, -50%);
 	text-align: center;
 }
-.site-hero_2 .page-title .big-title{font-size: 36px;}
+.site-hero_2 .page-title .big-title{font-size: 30px;}
 .site-hero_2 .page-title .small-title{font-size: 14px;}
 
 
