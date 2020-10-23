@@ -121,11 +121,9 @@ function Line(start, end) {
     }
 }
 function getCoordinate(event){
-	//var x = event.clientX - ctx.canvas.offsetLeft;
-	//var y = event.clientY - ctx.canvas.offsetTop;
 	let rect = canvas.getBoundingClientRect(); 
-	let x = event.clientX - rect.left; 
-	let y = event.clientY - rect.top; 
+	let x = Math.floor(event.clientX - rect.left); 
+	let y = Math.floor(event.clientY - rect.top); 
 
 	return {x : x, y : y};
 }

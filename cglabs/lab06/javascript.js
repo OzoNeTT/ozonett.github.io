@@ -96,8 +96,8 @@ function line(start, curPosition, color, size) {
 
 function getCoordinate(event){
 	let rect = canvas.getBoundingClientRect(); 
-	let x = event.clientX - rect.left; 
-	let y = event.clientY - rect.top; 
+	let x = Math.floor(event.clientX - rect.left); 
+	let y = Math.floor(event.clientY - rect.top); 
 
 	return {x : x, y : y};
 }
