@@ -408,7 +408,7 @@ nav.mobile-nav{
 	background-color: #60606e;
 	position: absolute;
 	right: 0;
-	top:100px;
+	top:95px;
 	display: none;
 }
 nav.mobile-nav > ul.first-level li{

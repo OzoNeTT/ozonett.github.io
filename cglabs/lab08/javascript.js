@@ -9,6 +9,7 @@ window.addEventListener("load",initial,false);
 
 function initial(){					
 	canvas = document.getElementById("myCanvas");
+	ctx = canvas.getContext("2d");
 }
 function randomColorWithAlpha() {
     var maxi = [255, 255, 255, 0.8];
