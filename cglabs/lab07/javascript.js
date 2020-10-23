@@ -190,17 +190,17 @@ function closePoly(){
 }
 
 function draw(){
-	document.addEventListener("mousedown",dragStart,false);
-	document.addEventListener("mousemove",drag,false);
-	document.addEventListener("mouseup",dragStop,false);
+	canvas.addEventListener("mousedown",dragStart,false);
+	canvas.addEventListener("mousemove",drag,false);
+	canvas.addEventListener("mouseup",dragStop,false);
 	document.addEventListener("keypress",closePoly);
 }
 
 function stopdraw(){
 	document.removeEventListener("keypress",closePoly,false);
-	document.removeEventListener("mousedown",dragStart,false);
-	document.removeEventListener("mousemove",drag,false);
-	document.removeEventListener("mouseup",dragStop,false);
+	canvas.removeEventListener("mousedown",dragStart,false);
+	canvas.removeEventListener("mousemove",drag,false);
+	canvas.removeEventListener("mouseup",dragStop,false);
 	document.getElementsByName('butss')[0].disabled=1;
 }
 
