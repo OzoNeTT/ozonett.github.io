@@ -80,8 +80,9 @@ function line(start, curPosition, color, size) {
 }
 
 function getCoordinate(event){
-	var x = event.clientX - ctx.canvas.offsetLeft;
-	var y = event.clientY - ctx.canvas.offsetTop;
+	let rect = canvas.getBoundingClientRect(); 
+	let x = event.clientX - rect.left; 
+	let y = event.clientY - rect.top; 
 
 	return {x : x, y : y};
 }
@@ -354,7 +355,7 @@ function clipping(){
 				obj.y = clippingStartPointy
 				obj2.x = clippingEndPointx
 				obj2.y = clippingEndPointy
-				line(obj, obj2, "blue", 5)
+				line(obj, obj2, "blue", 3)
 
 			}
  		}

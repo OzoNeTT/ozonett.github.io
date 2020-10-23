@@ -1,22 +1,107 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Cyrus-Back Clipping</title>
-	<script type="text/javascript" src="javascript.js"></script>
+	<head>
+		<title>Lab05</title>
+		<title>OzoNAT</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="shortcut icon" type="image/x-icon" href="../../assets/img/ops.ico">
+		<link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../../assets/css/ionicons.min.css">
+		<link rel="stylesheet" href="../../assets/css/flexslider.css">
+		<link rel="stylesheet" href="../../assets/css/animsition.min.css">
+		<link rel="stylesheet" href="../../assets/css/animate.css">
+		<link rel="stylesheet" href="../../assets/css/style.css">
+		
+	</head>
+	<body class="animsition" style="background: #fff url('../../assets/img/site-hero2.jpg') no-repeat;">
+		<header class="main-header">
+			<div class="container">
+				<div class="logo">
+					<a href="../../index.html"><img src="../../assets/img/logo.png" alt="logo"></a>
+				</div>
 	
-</head>
-<body>
+				<div class="menu">
+	
+					<nav class="desktop-nav">
+						<ul class="first-level">
+							<li><a href="../../index.html" class="animsition-link">Home</a></li>
+							<li><a href="../../404.html" class="animsition-link">about me</a></li>
+							<li><a href="../../complabs.html" class="animsition-link">cg-labs</a></li>
+							<li><a href="../../contact.html" class="animsition-link">contacts</a></li>
+						</ul>
+					</nav>
+	
+					<nav class="mobile-nav"></nav>
+					<div class="menu-icon">
+						<div class="line"></div>
+						<div class="line"></div>
+						<div class="line"></div>
+					</div>
+				</div>
+			</div>
+		</header>
+		<div class="page-title" >
+			<div class="container">
+				<div align="center" style="margin-top: 100px;">
+					<canvas width="512" height="512" id="myCanvas" ></canvas>			
+					<div id="tools" >
+						<input type="button" onclick="clearScreen()" class="btn" style="width: 512px;" value="Clear Screen" />
+					</div>
 
+					<div id="tools" >
+						<input type="button" name="butss" onclick="closePoly()" class="btn green" style="width: 512px;" value="Close Polygon" />
+					</div>
 
-	<canvas width="512" height="512" id="myCanvas"></canvas>
-	<div id="tools">
-		<input type="button" onclick="clearScreen()" class="image" value="CLEAR" style="height:35px;width:512px" />
-	</div>
-	</div>
-		<input type="button" name='butss' onclick="closePoly()" disabled class="image" value="POLIGON" style="height:35px;width:512px" />
-	</div>
-	<p><b>1.</b> Создайте многоугольник. Для завершения создания нажмите на любую клавишу (или кнопку POLIGON)</p>
+					<p style="color: black;"><b>1.</b> Создайте многоугольник. Для завершения создания нажмите на любую клавишу (Или кнопку POLIGON) </p>
+					<p style="color: black;"><b>2.</b> Рисуйте линии</p>
 
-	<p><b>2.</b> Рисуйте линии</p>
-</body>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="../../assets/js/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="../../assets/js/smoothScroll.js"></script>
+		<script type="text/javascript" src="../../assets/js/jquery.flexslider.js"></script>
+		<script type="text/javascript" src="../../assets/js/jquery.animsition.min.js"></script>
+		<script type="text/javascript" src="../../assets/js/wow.min.js"></script>
+		<script type="text/javascript" src="../../assets/js/main.js"></script>
+		<script type="text/javascript" src="javascript.js"></script>
+		<script type="text/javascript">
+		$(window).load(function(){
+			new WOW().init();
+			$(".testimonials").flexslider({
+				directionNav : false,
+				controlNav : false,
+				smoothHeight : true,
+			});
+		});
+		</script>
+
+		<footer class="main-footer wow fadeInUp">
+			<div class="container">
+				<div class="col-md-8 col-sm-12">
+					<div class="row">
+						<nav class="footer-nav">
+							<ul>
+							
+								<li><a href="../../index.html" class="animsition-link" style="color: black;">Home</a></li>
+								<li><a href="../../404.html" class="animsition-link" style="color: black;">about me</a></li>
+								<li><a href="../../complabs.html" class="animsition-link" style="color: black;">cg-labs</a></li>
+								<li><a href="../../contact.html" class="animsition-link" style="color: black;">contacts</a></li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+
+				<div class="col-md-4 col-sm-12" style="text-align:right">
+					<div class="row">
+						<div class="uppercase gray-text" style="color: black;"> 
+							created by gorbachev a.a. &copy;2020. all rights reserved.
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</body>
 </html>

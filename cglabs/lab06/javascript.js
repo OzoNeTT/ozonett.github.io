@@ -9,7 +9,6 @@ var lastPosition;
 var snapShot;
 var dragging;
 var tools;
-
 window.addEventListener("load",initial,false);
 
 function initial(){					
@@ -21,13 +20,15 @@ function initial(){
 }
 
 function fillArea(cords, p) {
-	ctx.fillStyle = "blue";
+
+	ctx.fillStyle = 'rgba(15, 199, 255, 1)';
 	var stack = [];
 	stack.push(cords);
+	
 	while(stack.length != 0){
 		var objj = stack.pop();
-		
 		ctx.fillRect(objj.x, objj.y, p, p);
+
 		if(objj.x - p > 0 && ctx.getImageData(objj.x-p, objj.y, p, p).data[3] != 255){
 			var obbj = {
 				x: objj.x - p,
@@ -58,6 +59,7 @@ function fillArea(cords, p) {
 		} 
 
 	}
+
 
 }
 function line(start, curPosition, color, size) {
@@ -93,8 +95,9 @@ function line(start, curPosition, color, size) {
 }
 
 function getCoordinate(event){
-	var x = event.clientX - ctx.canvas.offsetLeft;
-	var y = event.clientY - ctx.canvas.offsetTop;
+	let rect = canvas.getBoundingClientRect(); 
+	let x = event.clientX - rect.left; 
+	let y = event.clientY - rect.top; 
 
 	return {x : x, y : y};
 }
@@ -147,7 +150,7 @@ function closePoly(){
 			x: points[j + 1].x,
 			y: points[j + 1].y
 		};
-		line(ob1, ob2, 'rgba(0, 0, 0, 1)', 3)
+		line(ob1, ob2, "black", 3)
 	}
 	canvas.addEventListener("mousedown",paint,false);
 	dragging = false;
@@ -157,21 +160,23 @@ function closePoly(){
 }
 
 function paint(event){
+
 	var cords = getCoordinate(event)
 	fillArea(cords, 1);
+
 }
 
 function draw(){
-	canvas.addEventListener("mousedown",dragStart,false);
-	canvas.addEventListener("mousemove",drag,false);
-	canvas.addEventListener("mouseup",dragStop,false);
+	document.addEventListener("mousedown",dragStart,false);
+	document.addEventListener("mousemove",drag,false);
+	document.addEventListener("mouseup",dragStop,false);
 	document.addEventListener("keypress",closePoly);
 }
 
 function stopdraw(){
-	canvas.removeEventListener("mousedown",dragStart,false);
-	canvas.removeEventListener("mousemove",drag,false);
-	canvas.removeEventListener("mouseup",dragStop,false);
+	document.removeEventListener("mousedown",dragStart,false);
+	document.removeEventListener("mousemove",drag,false);
+	document.removeEventListener("mouseup",dragStop,false);
 	document.removeEventListener("keypress",closePoly,false);
 	document.getElementsByName('butss')[0].disabled=1;
 }
