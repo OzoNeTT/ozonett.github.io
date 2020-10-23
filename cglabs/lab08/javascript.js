@@ -4,20 +4,30 @@ var canvas;
 var ctx;
 var points = [];
 var lines = [];
-var startPosition;
-var curPosition;
-var lastPosition;
-var snapShot;
-var dragging;
+var diamond;
 window.addEventListener("load",initial,false);
 
 function initial(){					
 	canvas = document.getElementById("myCanvas");
 	ctx = canvas.getContext("2d");
 	ctx.strokeRect(0, 0, 512, 512);
-	draw()
 
 }
+function randomColorWithAlpha() {
+    var maxi = [255, 255, 255, 0.8];
+    var mini = [0, 0, 0, 0.1];
+    var round = [true, true, true, false];
+    var a = [];
+    for (var i = 0; i < 4; i++) {
+        var r = Math.random() * (maxi[i] - mini[i]) + mini[i];
+        if (round[i]) {
+            r = Math.round(r);
+        }
+        a.push(r);
+    }
+    return 'rgba(' + a.join(',') + ')';
+}
+
 function line(start, curPosition, color, size) {
 	var p = size;
 	var x0 = start.x
@@ -49,7 +59,7 @@ function line(start, curPosition, color, size) {
 		} 	
 	}	
 }
-function fillArea() {
+function fillArea(color) {
 	
 	var minY = points[0].y;
 	var maxY = points[0].y;
@@ -71,7 +81,7 @@ function fillArea() {
 				x: meetPoint[i],
 				y: y
 			};
-			line(ob1, ob2, 'rgba(15, 199, 255, 0.5)', 1)
+			line(ob1, ob2, color, 1)
 		}
 	}
 }
@@ -120,57 +130,23 @@ function Line(start, end) {
         return false;
     }
 }
-function getCoordinate(event){
-	//var x = event.clientX - ctx.canvas.offsetLeft;
-	//var y = event.clientY - ctx.canvas.offsetTop;
-	let rect = canvas.getBoundingClientRect(); 
-	let x = event.clientX - rect.left; 
-	let y = event.clientY - rect.top; 
-
-	return {x : x, y : y};
-}
-
-function takeSnapshot(){
-	snapShot = ctx.getImageData(0, 0, canvas.width, canvas.height);
-}
-
-function restoreSnapshot(){
-	ctx.putImageData(snapShot, 0, 0);
-}
-
-function dragStart(event){
-	dragging = true;
-	startPosition= getCoordinate(event)
-	points.push(startPosition);
-
-	ctx.fillStyle = 'rgba(255, 0, 0, 1)'
-	ctx.fillRect(startPosition.x-4, startPosition.y-4, 8,8)
-
-	takeSnapshot();
-}
-
-function drag(event){
-	if (dragging == true) {
-		restoreSnapshot();
-		curPosition = getCoordinate(event);
-		line(startPosition, curPosition, "black", 3);
+function pushPoints(scalex, scaley, startposx, startposy, x, y){
+	for(var i = 0; i < diamond.e.length; i++){
+		for(var j = 0; j < diamond.e[i].length; j++){
+			var obj1 = {
+				x: startposx + scalex * diamond.v[diamond.e[i][j] - 1][x],
+				y: startposy + scaley * diamond.v[diamond.e[i][j] - 1][y]
+			}
+			points.push(obj1);
+		}
+		closePoly();
 	}
-}
-
-function dragStop(event){
-	restoreSnapshot();
-	lastPosition = getCoordinate(event);
-	line(startPosition, lastPosition, "black", 3);
-	document.getElementsByName('butss')[0].disabled=0;
-
 }
 function closePoly(){
 	points.push(points[0])
 	for (var i = 1; i < points.length; i++) {
     	lines.push(new Line(points[i - 1], points[i]));
 	}
-	
-	restoreSnapshot();
 
 	for(var j = 0; j < points.length - 1; j++){
 		var ob1 = {
@@ -181,27 +157,11 @@ function closePoly(){
 			x: points[j + 1].x,
 			y: points[j + 1].y
 		};
-		line(ob1, ob2, 'rgba(0, 0, 0, 1)', 3)
+		line(ob1, ob2, 'rgba(0, 0, 0, 1)', 1)
 	}
-	dragging = false;
-	fillArea();
+	var col = randomColorWithAlpha();
+	fillArea(col);
 	oof()
-	document.getElementsByName('butss')[0].disabled=1;
-}
-
-function draw(){
-	document.addEventListener("mousedown",dragStart,false);
-	document.addEventListener("mousemove",drag,false);
-	document.addEventListener("mouseup",dragStop,false);
-	document.addEventListener("keypress",closePoly);
-}
-
-function stopdraw(){
-	document.removeEventListener("keypress",closePoly,false);
-	document.removeEventListener("mousedown",dragStart,false);
-	document.removeEventListener("mousemove",drag,false);
-	document.removeEventListener("mouseup",dragStop,false);
-	document.getElementsByName('butss')[0].disabled=1;
 }
 
 function oof(){
@@ -212,15 +172,34 @@ function oof(){
 	}
 }
 
+function modelCreator(modelname){
+	if (modelname === 'spaceShuttle'){
+		diamond = spaceShuttle;
+		pushPoints(30, 30, 256, 256, 1, 0);
+	}
+	else if(modelname === 'pyramid'){
+		diamond = pyramid;
+		pushPoints(512, 512, 0, 0, 0, 1);
+	}
+	else if(modelname === 'humanoidQuad'){
+		diamond = humanoidQuad;
+		pushPoints(20,-20, 256, 420, 0, 1);
+	}
+	else if(modelname === 'lamp'){
+		diamond = lamp;
+		pushPoints(40, 40, 256, 150, 1, 0);
+	}
+	else{
+		clearScreen()
+	}
+	
+
+}
+
 function clearScreen(){
-    
 	oof();
-    stopdraw();
-	dragging=false;
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	ctx.lineWidth = 1;
 	ctx.strokeStyle = "black"
 	ctx.strokeRect(0, 0, canvas.width, canvas.height);
-	takeSnapshot();
-	draw()
 }
