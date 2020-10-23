@@ -177,17 +177,17 @@ function modelCreator(modelname){
 		diamond = spaceShuttle;
 		pushPoints(30, 30, 256, 256, 1, 0);
 	}
-	else if(modelname === 'pyramid'){
-		diamond = pyramid;
-		pushPoints(512, 512, 0, 0, 0, 1);
+	else if(modelname === 'airplane'){
+		diamond = airplane;
+		pushPoints(-10, -10, 256, 256, 0, 1);
 	}
-	else if(modelname === 'humanoidQuad'){
-		diamond = humanoidQuad;
-		pushPoints(20,-20, 256, 420, 0, 1);
+	else if(modelname === 'skyscraper'){
+		diamond = skyscraper;
+		pushPoints(8, -8, 256, 420, 0, 1);
 	}
 	else if(modelname === 'lamp'){
 		diamond = lamp;
-		pushPoints(40, 40, 256, 150, 1, 0);
+		pushPoints(40, -40, 256, 360, 1, 0);
 	}
 	else{
 		clearScreen()
