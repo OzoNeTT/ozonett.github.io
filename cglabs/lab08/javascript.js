@@ -187,6 +187,10 @@ function modelCreator(modelname){
 		diamond = lamp;
 		pushPoints(40, -40, 256, 360, 1, 0);
 	}
+	else if(modelname === 'chelovechek'){
+		diamond = chelovechek;
+		pushPoints(65, -65, 256, 256, 0, 1);
+	}
 	else{
 		clearScreen()
 	}
