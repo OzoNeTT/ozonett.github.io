@@ -2,7 +2,6 @@
 var console;
 
 var CELL_SIZE = 4; //размер клетки
-//var cells = [ [], [] ]; //многомерный костыль JS
 var cells = [], buffCells = [];
 var timeout = 100; //задержка для автоплея
 var canvas, game;
@@ -14,10 +13,11 @@ function init() {
     canvas = document.getElementById('back').getContext('2d');
     canvas.width =  document.getElementById('back').width;
     canvas.height =  document.getElementById('back').height;
-    
     //game
+    //canvas.translate(0.5,0.5);
+	canvas.scale(1,1)
     game = document.getElementById('game').getContext('2d');
-    
+
     /* Сетка */
     function Grid() {
         this.size = { x : 0, y : 0 };
@@ -90,16 +90,6 @@ function init() {
         /* Заполнить конкретную ячейку */
         this.fillCell = function (x, y) {
             game.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE + 1, CELL_SIZE + 1);
-            
-            // Для рисования круга
-            
-//            game.beginPath();
-//            game.arc(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE / 2, 0, 2 * Math.PI, false);
-//            game.fillStyle = 'red';
-//            game.fill();
-//            game.lineWidth = 1;
-//            game.strokeStyle = 'red';
-//            game.stroke();
         };
         
         /* Заполнить всё поле */
