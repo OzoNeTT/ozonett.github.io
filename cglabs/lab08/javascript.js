@@ -114,7 +114,7 @@ function Line(start, end) {
         if (!this.isValidY(y))
             throw new RangeError();
 
-        return 1 / this.m * (y - this.y0) + this.x0;
+        return Math.floor(1 / this.m * (y - this.y0) + this.x0);
     }
 
     this.isValidY = function (y) {
